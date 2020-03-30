@@ -33,8 +33,8 @@ export const main = async (event, context) => {
         headers: headers,
         body: JSON.stringify({ status: false })
       };
-      callback(null, response);
-      return;
+
+      return response;
     }
 
     // Return status code 200 and the newly created item
