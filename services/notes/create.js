@@ -5,10 +5,9 @@ import { success, failure } from "../../libs/response-lib";
 export const main = async (event, context) => {
   // Request body is passed in as a JSON encoded string in 'event.body'
   const data = JSON.parse(event.body);
-
+  console.log(process.env.tableName);
   const params = {
     TableName: process.env.tableName,
-
     Item: {
       userId: event.requestContext.identity.cognitoIdentityId,
       noteId: uuid.v1(),
@@ -22,6 +21,7 @@ export const main = async (event, context) => {
     await dynamoDbLib.call("put", params);
     return success(params.Item);
   } catch (e) {
+    console.log(e);
     return failure({ status: false });
   }
 };
