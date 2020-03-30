@@ -38,6 +38,14 @@ provider:
   #  SAMPLE_ENV_VAR: ${env:SAMPLE_ENV_VAR}
 
 functions:
+  get:
+    handler: ./services/notes/get.main
+    events:
+      - http:
+          path: notes/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
   create:
     handler: ./services/notes/create.main
     events:
