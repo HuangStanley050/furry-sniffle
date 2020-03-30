@@ -29,8 +29,20 @@ provider:
   region: ap-southeast-2
   environment:
     tableName: notes
+    stripeSecretKey: ${env:STRIPE_SECRET_KEY}
 
 functions:
+  billing:
+    # Defines an HTTP API endpoint that calls the main function in billing.js
+    # - path: url path is /billing
+    # - method: POST request
+    handler: ./services/notes/billing.main
+    events:
+      - http:
+          path: billing
+          method: post
+          cors: true
+          authorizer: aws_iam
   delete:
     # Defines an HTTP API endpoint that calls the main function in delete.js
     # - path: url path is /notes/{id}
