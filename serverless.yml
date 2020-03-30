@@ -31,6 +31,14 @@ provider:
     tableName: notes
 
 functions:
+  update:
+    handler: ./services/notes/update.main
+    events:
+      - http:
+          path: notes/{id}
+          method: put
+          cors: true
+          authorizer: aws_iam
   list:
     handler: ./services/notes/list.main
     events:
